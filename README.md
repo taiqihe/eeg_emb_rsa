@@ -3,7 +3,7 @@
 ## Dependencies
 
 - Matlab: [EEGLAB](https://sccn.ucsd.edu/eeglab/index.php), [ERPLAB](https://github.com/lucklab/erplab)
-- Python>3.5: numpy, absl-py, textgrid, scipy, tensorflow, tensorflow_hub, nltk, matplotlib, adjustText
+- Python>3.5: numpy, absl-py, textgrid, scipy, tensorflow, tensorflow_hub, nltk, matplotlib
 - Perl
 - [FastText](https://github.com/facebookresearch/fastText/)
 
