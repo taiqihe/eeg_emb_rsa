@@ -25,7 +25,9 @@
 
 ### Generating aligned word onsets
 
-Aligned word onset data for the two stories are provided. To replicate or create your own alignments, follow the steps below. You will also need:
+We use an automatic speech recognition (ASR) toolkit, [Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner), to find the onset of each word from the story transcripts in the audio files. Since we have the eventcodes for the onset of each audio file, we can infer the onset of each word in the experiment if we know the onsets of the words in their audio files.
+
+Aligned word onset data for the two stories are provided. To replicate the results, follow the steps below. You will need:
 - Praat
 - [Montreal Forced Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner)
 
@@ -37,7 +39,7 @@ Aligned word onset data for the two stories are provided. To replicate or create
 
 4. Run `transfer_transcription.py` to put the actual texts into the TextGrid files.
 
-5. Use MFA to align the words with sounds. A sample command looks like this (with the provided pronunciation dictionary that added missing words):
+5. Use MFA to align the words with sounds. A sample command looks like this (with the default pretrained English model and our pronunciation dictionary that added missing words):
 
    ```
    mfa align --clean TEC_source/ english_pronunciations.dict english TEC_outputs
@@ -53,7 +55,7 @@ Hand annotated onsets for a subset of the words are provided. You can save both 
 
 1. Run `gen_eventlist.m` to extract the eventlists from the EEG files.
 2. Run `normalize_eventlists.sh` to fix idiosyncratic inconsistencies in the generated eventlists
-3. Use `proc_elist.py` to add word information to the eventlists
+3. Use `proc_elist.py` to add word information from the audio-text alignments to the eventlists
 4. Run `gen_data.m` to filter and epoch the EEG data and generate epochs for all words for each subject
 5. Run `serialize_epochs.py` to prepare the data for the next steps
 
