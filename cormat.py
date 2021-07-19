@@ -140,6 +140,16 @@ def remove_average_erp(data, baseline_corr = True, partial = None):
 
 	return data
 
+def baseline_correction_erp(data, partial = None):	
+	if partial:
+		for w in data:
+			data[w] = partial_baseline_correction(data[w], partial[0], partial[1])[:29]
+	else:
+		for w in data:
+			data[w] = baseline_correction(data[w], PRE)[:29] # use only first 29 channels
+
+	return data
+
 def baseline_correction(EEG, zeroloc):
 	bsl = np.mean(np.take(EEG, range(zeroloc), axis = -1), axis = -1, keepdims = True)
 	ans = EEG-bsl
@@ -293,7 +303,7 @@ def proc_indiv(log_file = 'rs_top100_elmo_cont_{}.csv', plot_cormat = False, equ
 		else:
 			with open(os.path.join(FLAGS.rawdata, 'word_averages_{}.pickle').format(s), 'rb') as pin:
 				erps = pickle.load(pin)
-			erps = remove_average_erp(erps, partial = (PRE, ONSET))
+			erps = baseline_correction_erp(erps, partial = (PRE, ONSET))
 		
 		w2idx = dict()
 		i = 0
