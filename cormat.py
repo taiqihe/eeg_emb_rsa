@@ -59,15 +59,20 @@ def binary_cor(arg):
 	global ARR
 	return ARR[x] == ARR[y]
 
-def corr_mat(data, pfunc, ids, w2idx):
+def worker_init(arr):
 	global ARR
+	ARR = arr
 
-	remap = [[] for i in range(len(w2idx))]
-	for w in w2idx:
-		remap[w2idx[w]] = np.ravel(data[w])
+def corr_mat(data, pfunc, ids, w2idx = None):
+	if w2idx is not None:
+		remap = [[] for i in range(len(w2idx))]
+		for w in w2idx:
+			remap[w2idx[w]] = np.ravel(data[w])
+		ARR = remap
+	else:
+		ARR = data
 
-	ARR = remap
-	with Pool(16) as p:
+	with Pool(16, initializer = worker_init, initargs = (ARR,)) as p:
 		ans = p.map(pfunc, itertools.combinations(ids, 2))
 
 	return ans
