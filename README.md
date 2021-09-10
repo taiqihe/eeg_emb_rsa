@@ -1,5 +1,7 @@
 # Neural Correlates of Word Representation Vectors in Natural Language Processing Models
 
+See https://osf.io/zft6e/ for the full dataset.
+
 ## Dependencies
 
 - Matlab: [EEGLAB](https://sccn.ucsd.edu/eeglab/index.php), [ERPLAB](https://github.com/lucklab/erplab)
